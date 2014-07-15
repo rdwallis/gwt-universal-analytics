@@ -12,15 +12,15 @@ public interface UniversalAnalytics {
 
     /**
      * Create a new tracker using the user id bound to GaAccount.<br>
-     * Example: create();<br>
-     * create().name("My Tracker") //create a custom named tracker
+     * Example: create().go();<br>
+     * create().name("My Tracker").go() //create a custom named tracker
      */
     CreateOptions create();
 
     /**
      * Create a new tracker using a supplied user id.<br>
-     * Example: create("UA-XXXXXXX-X");<br>
-     * create("UA-XXXXXXX-X").name("My Tracker") //create a custom named tracker
+     * Example: create("UA-XXXXXXX-X").go();<br>
+     * create("UA-XXXXXXX-X").name("My Tracker").go() //create a custom named tracker
      */
     CreateOptions create(String userAccount);
 
@@ -54,7 +54,7 @@ public interface UniversalAnalytics {
      * send a specific HitType.
      * @param hitType
      * see https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#hit
-     * Example: send(HitType.PAGE_VIEW);
+     * Example: send(HitType.PAGE_VIEW).go();
      */
     AnalyticsOptions send(HitType hitType);
 
@@ -63,7 +63,7 @@ public interface UniversalAnalytics {
      * @param trackerName the name of the tracker
      * @param hitType
      * see https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#hit
-     * Example: send(HitType.PAGE_VIEW);
+     * Example: send(HitType.PAGE_VIEW).go();
      */
     AnalyticsOptions send(String trackerName, HitType hitType);
 
@@ -72,7 +72,7 @@ public interface UniversalAnalytics {
      * @param category  the event category
      * @param action the event action<br>
      * see https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#events
-     * Example: sendEvent("button", "click");
+     * Example: sendEvent("button", "click").go();
      */
     EventsOptions sendEvent(String category, String action);
 
@@ -82,14 +82,14 @@ public interface UniversalAnalytics {
      * @param category  the event category
      * @param action the event action<br>
      * see https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#events
-     * Example: sendEvent("button", "click");
+     * Example: sendEvent("button", "click").go();
      */
     EventsOptions sendEvent(String trackerName, String category, String action);
 
     /**
      * send a pageview to a specific tracker.
-     * Example: sendPageView();<br>
-     * sendPageView().documentPath("/foo"); //send a pageview for /foo
+     * Example: sendPageView().go();<br>
+     * sendPageView().documentPath("/foo").go(); //send a pageview for /foo
      */
     ContentOptions sendPageView();
 
@@ -97,7 +97,7 @@ public interface UniversalAnalytics {
      * send a pageview to a specific tracker.
      * @param trackerName the name of the tracker
      * Example: sendPageView();<br>
-     * sendPageView().documentPath("/foo"); //send a pageview for /foo
+     * sendPageView().documentPath("/foo").go(); //send a pageview for /foo
      */
     ContentOptions sendPageView(String trackerName);
 
@@ -106,7 +106,7 @@ public interface UniversalAnalytics {
      * @param socialNetwork the social network
      * @param socialAction the action taken
      * @param socialTarget the target of the action
-     * Example: sendSocial("facebook", "like", "http://www.example.com");<br>
+     * Example: sendSocial("facebook", "like", "http://www.example.com").go();<br>
      */
     SocialOptions sendSocial(String socialNetwork, String socialAction, String socialTarget);
 
@@ -116,7 +116,7 @@ public interface UniversalAnalytics {
      * @param socialNetwork the social network
      * @param socialAction the action taken
      * @param socialTarget the target of the action
-     * Example: sendSocial("facebook", "like", "http://www.example.com");<br>
+     * Example: sendSocial("facebook", "like", "http://www.example.com").go();<br>
      */
     SocialOptions sendSocial(String trackerName, String socialNetwork, String socialAction, String socialTarget);
 
@@ -126,7 +126,7 @@ public interface UniversalAnalytics {
      * @param timingCategory - a category used to group related timing data
      * @param timingVar - a string to identify the variable being recorded
      * @param timingValue - the number of milliseconds of elapsed time.
-     * Example: sendTiming("jQuery", "Load Library", 20);<br>
+     * Example: sendTiming("jQuery", "Load Library", 20).go();<br>
      */
     TimingOptions sendTiming(final String timingCategory, final String timingVar, final int timingValue);
 

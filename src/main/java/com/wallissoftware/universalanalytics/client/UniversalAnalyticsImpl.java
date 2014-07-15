@@ -77,9 +77,16 @@ public class UniversalAnalyticsImpl implements UniversalAnalytics {
     public TimingOptions endTimingEvent(final String trackerName, final String timingCategory, final String timingVariableName) {
         final String key = getTimingKey(timingCategory, timingVariableName);
         if (timingEvents.containsKey(key)) {
-            return sendTiming(trackerName, timingCategory, timingVariableName, (int) (Duration.currentTimeMillis() - timingEvents.get(key)));
+            return sendTiming(trackerName, timingCategory, timingVariableName,
+                    (int) (Duration.currentTimeMillis() - timingEvents.remove(key)));
         }
-        return null;
+        return new AnalyticsOptions(new JSONOptionsCallback() {
+
+            @Override
+            public void onCallback(final JSONObject options) {
+                //Do nothing a timing event was ended before it was started.  This is here just to stop a crash.
+            }
+        }).timingOptions(timingCategory, timingVariableName, 0);
     }
 
     private native void forceLog(JavaScriptObject obj) /*-{
