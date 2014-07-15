@@ -33,6 +33,24 @@ public interface UniversalAnalytics {
     void enablePlugin(AnalyticsPlugin plugin);
 
     /**
+     * Used in conjuction with startTimingEvent to automatically setup and log timing events;
+     * Call endTimingEvent with the same timingCategory and timingVariableName as you used in startTimingEvent()
+     * to fire the event.
+     * @param timingCategory
+     * @param timingVariableName
+     */
+    TimingOptions endTimingEvent(String timingCategory, String timingVariableName);
+
+    /**
+     * Used in conjuction with startTimingEvent to automatically setup and log timing events;
+     * Call endTimingEvent with the same timingCategory and timingVariableName as you used in startTimingEvent()
+     * to fire the event.
+     * @param timingCategory
+     * @param timingVariableName
+     */
+    TimingOptions endTimingEvent(String trackerName, String timingCategory, String timingVariableName);
+
+    /**
      * send a specific HitType.
      * @param hitType
      * see https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#hit
@@ -119,15 +137,24 @@ public interface UniversalAnalytics {
      * @param timingCategory - a category used to group related timing data
      * @param timingVar - a string to identify the variable being recorded
      * @param timingValue - the number of milliseconds of elapsed time.
-     * Example: sendTiming("jQuery", "Load Library", 20);<br>
+     * Example: sendTiming("jQuery", "Load Library", 20).go();<br>
      */
     TimingOptions sendTiming(String trackerName, final String timingCategory, final String timingVar,
             final int timingValue);
 
     /**
      * set options for all subsequent calls.
-     * Example: setGlobalSettings().anonymizeIp(true); //anonymize ip addresses<br>
+     * Example: setGlobalSettings().anonymizeIp(true).go(); //anonymize ip addresses<br>
      */
     GeneralOptions setGlobalSettings();
+
+    /**
+     * A handy shortcut for setting up an event you want to time.
+     * On it's own this method does nothing.
+     * Call endTimingEvent with the same timingCategory and timingVariableName to fire the event.
+     * @param timingCategory
+     * @param timingVariableName
+     */
+    void startTimingEvent(String timingCategory, String timingVariableName);
 
 }

@@ -1,5 +1,9 @@
 package com.wallissoftware.universalanalytics.client;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.gwt.core.client.Duration;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
@@ -20,6 +24,8 @@ import com.wallissoftware.universalanalytics.shared.options.TimingOptions;
 
 public class UniversalAnalyticsImpl implements UniversalAnalytics {
     private final String userAccount;
+
+    private Map<String, Double> timingEvents = new HashMap<>();
 
     @Inject
     UniversalAnalyticsImpl(@Named("gaAccount") final String userAccount,
@@ -62,9 +68,27 @@ public class UniversalAnalyticsImpl implements UniversalAnalytics {
         call(new JSONString("require"), new JSONString(plugin.getFieldName()));
     }
 
+    @Override
+    public TimingOptions endTimingEvent(final String timingCategory, final String timingVariableName) {
+        return endTimingEvent(null, timingCategory, timingVariableName);
+    }
+
+    @Override
+    public TimingOptions endTimingEvent(final String trackerName, final String timingCategory, final String timingVariableName) {
+        final String key = getTimingKey(timingCategory, timingVariableName);
+        if (timingEvents.containsKey(key)) {
+            return sendTiming(trackerName, timingCategory, timingVariableName, (int) (Duration.currentTimeMillis() - timingEvents.get(key)));
+        }
+        return null;
+    }
+
     private native void forceLog(JavaScriptObject obj) /*-{
         $wnd.console.log(obj);
     }-*/;
+
+    private String getTimingKey(final String timingCategory, final String timingVariableName) {
+        return timingCategory + ":" + timingVariableName;
+    }
 
     private native void init()/*-{
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -131,7 +155,8 @@ public class UniversalAnalyticsImpl implements UniversalAnalytics {
     }
 
     @Override
-    public TimingOptions sendTiming(final String trackerName, final String timingCategory, final String timingVar, final int timingValue) {
+    public TimingOptions sendTiming(final String trackerName, final String timingCategory, final String timingVar,
+            final int timingValue) {
         return send(trackerName, HitType.TIMING).timingOptions(timingCategory, timingVar, timingValue);
     }
 
@@ -147,6 +172,11 @@ public class UniversalAnalyticsImpl implements UniversalAnalytics {
         }).generalOptions();
     }
 
+    @Override
+    public void startTimingEvent(final String timingCategory, final String timingVariableName) {
+        timingEvents.put(timingCategory + ":" + timingVariableName, Duration.currentTimeMillis());
+
+    }
 
 
 }
