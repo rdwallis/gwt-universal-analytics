@@ -1,6 +1,5 @@
 package com.wallissoftware.universalanalytics.shared;
 
-import com.wallissoftware.universalanalytics.client.AnalyticsPlugin;
 import com.wallissoftware.universalanalytics.shared.options.AnalyticsOptions;
 import com.wallissoftware.universalanalytics.shared.options.ContentOptions;
 import com.wallissoftware.universalanalytics.shared.options.CreateOptions;

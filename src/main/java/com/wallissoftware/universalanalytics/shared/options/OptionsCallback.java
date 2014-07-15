@@ -1,6 +1,10 @@
 package com.wallissoftware.universalanalytics.shared.options;
 
+import com.wallissoftware.universalanalytics.shared.HitCallback;
+
 public abstract class OptionsCallback<T> {
+
+    abstract public void addHitCallback(HitCallback hitCallback);
 
     void doCallback() {
         onCallback(getOptions());

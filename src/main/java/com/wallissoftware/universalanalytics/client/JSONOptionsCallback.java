@@ -4,6 +4,7 @@ import com.google.gwt.json.client.JSONBoolean;
 import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
+import com.wallissoftware.universalanalytics.shared.HitCallback;
 import com.wallissoftware.universalanalytics.shared.options.OptionsCallback;
 
 public abstract class JSONOptionsCallback extends OptionsCallback<JSONObject> {
@@ -13,6 +14,17 @@ public abstract class JSONOptionsCallback extends OptionsCallback<JSONObject> {
     public JSONOptionsCallback() {
         this.jsonObject = new JSONObject();
     }
+
+    @Override
+    public void addHitCallback(final HitCallback callback) {
+        addHitCallback(jsonObject, new GuaranteedHitCallback(callback));
+    }
+
+    private native void addHitCallback(JSONObject jsonObject, HitCallback callback) /*-{
+        jsonObject.hitCallback = function() {
+            callback.@com.gwtplatform.mvp.client.googleanalytics.universalanalytics.HitCallback::callback()();
+        }
+    }-*/;
 
     @Override
     public JSONObject getOptions() {

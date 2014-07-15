@@ -1,12 +1,5 @@
 package com.wallissoftware.universalanalytics.shared.options;
 
-import com.google.gwt.json.client.JSONBoolean;
-import com.google.gwt.json.client.JSONNumber;
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONString;
-import com.google.gwt.json.client.JSONValue;
-import com.wallissoftware.universalanalytics.shared.options.OptionsCallback;
-import com.wallissoftware.universalanalytics.shared.options.ApptrackingOptions;
 
 public class ApptrackingOptions extends AnalyticsOptions {
 

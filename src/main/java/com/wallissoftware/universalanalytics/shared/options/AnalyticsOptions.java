@@ -25,10 +25,6 @@ public class AnalyticsOptions {
         return new CustomsOptions(getOptionsCallback());
     }
 
-    public EnhancedEcommerceOptions enhancedEcommerceOptions() {
-        return new EnhancedEcommerceOptions(getOptionsCallback());
-    }
-
     public EventsOptions eventsOptions(final String eventCategory, final String eventAction) {
         return new EventsOptions(getOptionsCallback(), eventCategory, eventAction);
     }
