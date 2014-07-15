@@ -62,6 +62,10 @@ public class UniversalAnalyticsImpl implements UniversalAnalytics {
         call(new JSONString("require"), new JSONString(plugin.getFieldName()));
     }
 
+    private native void forceLog(JavaScriptObject obj) /*-{
+        $wnd.console.log(obj);
+    }-*/;
+
     private native void init()/*-{
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -70,8 +74,8 @@ public class UniversalAnalyticsImpl implements UniversalAnalytics {
     }-*/;
 
     private native void nativeCall(JavaScriptObject params) /*-{
-        $wnd.__ua.apply(null, params);
-    }-*/;
+                                                            $wnd.__ua.apply(null, params);
+                                                            }-*/;
 
     @Override
     public AnalyticsOptions send(final HitType hitType) {
