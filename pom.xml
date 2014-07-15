@@ -47,7 +47,7 @@
 				<configuration>
 					<strict>true</strict>
 					<modules>
-						<module>com.wallissoftware.analytics.Analytics</module>
+						<module>com.wallissoftware.universalanalytics.UniversalAnalytics</module>
 
 					</modules>
 				</configuration>
