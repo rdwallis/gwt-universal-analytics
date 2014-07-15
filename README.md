@@ -51,7 +51,7 @@ analytics.enablePlugin(AnalyticsPlugin.DISPLAY); //Provides demographics informa
 
 Inject UniversalAnalytics into the class you want to track events from.
 
-*REMEBER TO CALL GO()*
+**REMEBER TO CALL GO()**
 
 UniversalAnalytics uses a version of the builder pattern where you call the type of tracking method you want, then chain the options you need to the call followed by go().
 
