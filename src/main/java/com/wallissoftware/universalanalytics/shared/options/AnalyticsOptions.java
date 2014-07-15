@@ -1,5 +1,6 @@
 package com.wallissoftware.universalanalytics.shared.options;
 
+import com.wallissoftware.universalanalytics.shared.HitCallback;
 
 public class AnalyticsOptions {
 
@@ -52,11 +53,14 @@ public class AnalyticsOptions {
         this.optionsCallback.doCallback();
     }
 
+    public void go(final HitCallback hitCallback) {
+        optionsCallback.addHitCallback(hitCallback);
+        go();
+    }
+
     public HitOptions hitOptions() {
         return new HitOptions(getOptionsCallback());
     }
-
-
 
     void putBoolean(final String fieldName, final boolean value) {
         optionsCallback.putBoolean(fieldName, value);

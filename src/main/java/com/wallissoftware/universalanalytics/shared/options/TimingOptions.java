@@ -1,6 +1,5 @@
 package com.wallissoftware.universalanalytics.shared.options;
 
-
 public class TimingOptions extends AnalyticsOptions {
 
     TimingOptions(final OptionsCallback<?> optionsCallback, final String UserTimingCategory,
@@ -22,7 +21,5 @@ public class TimingOptions extends AnalyticsOptions {
         putText("timingLabel", UserTimingLabel);
         return this;
     }
-
-
 
 }

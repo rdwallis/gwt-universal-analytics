@@ -22,7 +22,7 @@ public abstract class JSONOptionsCallback extends OptionsCallback<JSONObject> {
 
     private native void addHitCallback(JSONObject jsonObject, HitCallback callback) /*-{
         jsonObject.hitCallback = function() {
-            callback.@com.gwtplatform.mvp.client.googleanalytics.universalanalytics.HitCallback::callback()();
+            callback.@com.wallissoftware.universalanalytics.shared.HitCallback::onCallback()();
         }
     }-*/;
 

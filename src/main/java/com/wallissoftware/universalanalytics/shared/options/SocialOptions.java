@@ -1,6 +1,5 @@
 package com.wallissoftware.universalanalytics.shared.options;
 
-
 public class SocialOptions extends AnalyticsOptions {
 
     SocialOptions(final OptionsCallback<?> optionsCallback, final String SocialNetwork, final String SocialAction,
