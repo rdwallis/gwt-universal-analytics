@@ -36,6 +36,7 @@ public interface UniversalAnalytics {
      * Used in conjuction with startTimingEvent to automatically setup and log timing events;
      * Call endTimingEvent with the same timingCategory and timingVariableName as you used in startTimingEvent()
      * to fire the event.
+     * Calling this method before calling startTimingEvent will silently fail.
      * @param timingCategory
      * @param timingVariableName
      */
@@ -45,6 +46,7 @@ public interface UniversalAnalytics {
      * Used in conjuction with startTimingEvent to automatically setup and log timing events;
      * Call endTimingEvent with the same timingCategory and timingVariableName as you used in startTimingEvent()
      * to fire the event.
+     * Calling this method before calling startTimingEvent will silently fail.
      * @param timingCategory
      * @param timingVariableName
      */
@@ -150,7 +152,7 @@ public interface UniversalAnalytics {
 
     /**
      * A handy shortcut for setting up an event you want to time.
-     * On it's own this method does nothing.
+     * On its own this method does nothing.
      * Call endTimingEvent with the same timingCategory and timingVariableName to fire the event.
      * @param timingCategory
      * @param timingVariableName
