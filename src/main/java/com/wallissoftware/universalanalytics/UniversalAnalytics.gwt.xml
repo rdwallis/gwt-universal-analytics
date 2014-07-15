@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+
+	
+		<define-property name="codec.base64Supported" values="yes,no" />
+
+
+	<property-provider name="codec.base64Supported">
+    <![CDATA[
+      if (typeof(window.btoa) == "function") {
+        return "yes";
+      } else {
+        return "no";
+      }
+    ]]>
+	</property-provider>
+
+	<set-property name="codec.base64Supported" value="no">
+		<any>
+			<when-property-is name="user.agent" value="ie6" />
+			<when-property-is name="user.agent" value="ie8" />
+			<when-property-is name="user.agent" value="ie9" />
+		</any>
+	</set-property>
+	<set-property name="codec.base64Supported" value="yes">
+		<any>
+			<when-property-is name="user.agent" value="ie10" />
+			<when-property-is name="user.agent" value="gecko1_8" />
+			<when-property-is name="user.agent" value="safari" />
+			<when-property-is name="user.agent" value="opera" />
+		</any>
+	</set-property>
+
+
+	<replace-with class="com.wallissoftware.codec.client.Base64Native">
+		<when-type-is class="com.wallissoftware.codec.client.Base64" />
+		<all>
+			<when-property-is name="codec.base64Supported" value="yes" />
+		</all>
+	</replace-with>
+
+	<replace-with class="com.wallissoftware.codec.client.Base64Impl">
+		<when-type-is class="com.wallissoftware.codec.client.Base64" />
+		<all>
+			<when-property-is name="codec.base64Supported" value="no" />
+		</all>
+	</replace-with>
+</module>
