@@ -27,7 +27,7 @@ public interface UniversalAnalytics {
     /**
      * Enable an analytics plugin.  This must be called immediately after create();
      * If you are using plugins you should probably turn off autoCreate when building the
-     * UniversalAnalyticsModule and create your tracker manually in your bootstrapper.
+     * UniversalAnalyticsModule and create your tracker manually in your bootstrapper or EntryPoint.
      * @param plugin
      */
     void enablePlugin(AnalyticsPlugin plugin);
@@ -124,7 +124,7 @@ public interface UniversalAnalytics {
 
     /**
      * send user timing information to the default tracker.
-     * this is use to analyze page speed.
+     * this is used to analyze page speed.
      * @param timingCategory - a category used to group related timing data
      * @param timingVar - a string to identify the variable being recorded
      * @param timingValue - the number of milliseconds of elapsed time.
@@ -134,7 +134,7 @@ public interface UniversalAnalytics {
 
     /**
      * send user timing information to a specific tracker.
-     * this is use to analyze page speed.
+     * this is used to analyze page speed.
      * @param trackerName - the name of the tracker
      * @param timingCategory - a category used to group related timing data
      * @param timingVar - a string to identify the variable being recorded

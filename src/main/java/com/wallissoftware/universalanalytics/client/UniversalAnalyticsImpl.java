@@ -25,7 +25,7 @@ import com.wallissoftware.universalanalytics.shared.options.TimingOptions;
 public class UniversalAnalyticsImpl implements UniversalAnalytics {
     private final String userAccount;
 
-    private Map<String, Double> timingEvents = new HashMap<>();
+    private final Map<String, Double> timingEvents = new HashMap<>();
 
     @Inject
     UniversalAnalyticsImpl(@Named("gaAccount") final String userAccount,
@@ -89,10 +89,6 @@ public class UniversalAnalyticsImpl implements UniversalAnalytics {
         }).timingOptions(timingCategory, timingVariableName, 0);
     }
 
-    private native void forceLog(JavaScriptObject obj) /*-{
-        $wnd.console.log(obj);
-    }-*/;
-
     private String getTimingKey(final String timingCategory, final String timingVariableName) {
         return timingCategory + ":" + timingVariableName;
     }
@@ -105,8 +101,8 @@ public class UniversalAnalyticsImpl implements UniversalAnalytics {
     }-*/;
 
     private native void nativeCall(JavaScriptObject params) /*-{
-                                                            $wnd.__ua.apply(null, params);
-                                                            }-*/;
+        $wnd.__ua.apply(null, params);
+    }-*/;
 
     @Override
     public AnalyticsOptions send(final HitType hitType) {
