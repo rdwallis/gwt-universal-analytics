@@ -7,7 +7,7 @@ The code is generated directly from the api by https://github.com/rdwallis/gwt-u
 
 ##Install
 
-Checkout this project, and then run mvn install
+Checkout this project, and then run `mvn install`
 
 Add the following to your pom
 
