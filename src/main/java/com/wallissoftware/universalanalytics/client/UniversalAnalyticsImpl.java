@@ -33,7 +33,7 @@ public class UniversalAnalyticsImpl implements UniversalAnalytics {
         init();
         this.userAccount = userAccount;
         if (autoCreate) {
-            create();
+            create().go();
         }
     }
 
