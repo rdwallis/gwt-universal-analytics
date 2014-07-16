@@ -79,13 +79,13 @@ You can use universal analytics on the server exactly the same as you do on the 
 
 Server side calls work via the [Measurement Protocol](https://developers.google.com/analytics/devguides/collection/protocol/v1/)
 
-A filter will automatically fill out the required fields for you from the _ga cookie or create the cookie if it doesn't exist.
+A filter will automatically fill out the Measurement Protocol required fields for you from the _ga cookie or create the cookie if it doesn't exist.
 
 `setGlobalOptions()` and `enablePlugin()` have no effect on server calls.
 
 If you're using multiple trackers then you should call `create().TrackerName("My Tracker").go()` to create your tracker before making the tracker call.  All other options sent to create() on the server will be ignored.
 
-If you're using SetCookieName() on the client then the automatic filter will not be able to keep the server and client in sync since it assumes that the cookie name is : _ga.  Raise an issue if you need to set the cookie name for some reason.
+If you're using SetCookieName() on the client then the automatic filter will not be able to keep the server and client in sync since it assumes that the cookie name is : _ga.  Raise an issue on this project if you need to set the cookie name for some reason.
 
 ##Timing Events
 
