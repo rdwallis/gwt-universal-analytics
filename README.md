@@ -101,6 +101,6 @@ analytics.endTimingEvent("My Category", "My Timing Variable Name").UserTimingLab
 
 This will automatically create a timing event marking the difference between when the start and end calls are made.
 
-The category and variable names for the start and end calls must be exactly the same, or the call will have no affect.
+The category and variable names for the start and end calls must be exactly the same, or the call will have no effect.
 
 
