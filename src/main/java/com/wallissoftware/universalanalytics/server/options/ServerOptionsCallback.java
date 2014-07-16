@@ -1,13 +1,23 @@
 package com.wallissoftware.universalanalytics.server.options;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Logger;
+
+import org.apache.commons.io.IOUtils;
 
 import com.wallissoftware.universalanalytics.shared.HitCallback;
 import com.wallissoftware.universalanalytics.shared.options.OptionsCallback;
 
-public abstract class ServerOptionsCallback extends OptionsCallback<String> {
+public class ServerOptionsCallback extends OptionsCallback<String> {
+
+    private final static Logger logger = Logger.getLogger(ServerOptionsCallback.class.getName());
+
+    private static final String POST_URL = "http://www.google-analytics.com/collect";
 
     private static final Map<String, String> protocolMap = new HashMap<>();
 
@@ -75,7 +85,7 @@ public abstract class ServerOptionsCallback extends OptionsCallback<String> {
         for (final Entry<String, String> entry : options.entrySet()) {
             result.append("&").append(entry.getKey()).append("=").append(entry.getValue());
         }
-        return result.toString();
+        return "?" + result.toString().substring(1);
     }
 
     private String getProtocolFieldName(final String fieldName) {
@@ -83,6 +93,19 @@ public abstract class ServerOptionsCallback extends OptionsCallback<String> {
             return protocolMap.get(fieldName);
         }
         return fieldName;
+    }
+
+    @Override
+    public void onCallback(final String options) {
+        try {
+            final URL url = new URL(POST_URL + options);
+            IOUtils.toString(url);
+        } catch (final MalformedURLException e) {
+            logger.severe(e.getMessage());
+        } catch (final IOException e) {
+            logger.severe(e.getMessage());
+        }
+
     }
 
     @Override
@@ -101,6 +124,5 @@ public abstract class ServerOptionsCallback extends OptionsCallback<String> {
     public void putText(final String fieldName, final String value) {
         options.put(getProtocolFieldName(fieldName), value);
     }
-
 
 }

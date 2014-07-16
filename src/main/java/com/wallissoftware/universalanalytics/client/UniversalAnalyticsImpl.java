@@ -11,27 +11,23 @@ import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import com.wallissoftware.universalanalytics.shared.AbstractUniversalAnalyticsImpl;
 import com.wallissoftware.universalanalytics.shared.AnalyticsPlugin;
 import com.wallissoftware.universalanalytics.shared.HitType;
-import com.wallissoftware.universalanalytics.shared.UniversalAnalytics;
 import com.wallissoftware.universalanalytics.shared.options.AnalyticsOptions;
-import com.wallissoftware.universalanalytics.shared.options.ContentOptions;
 import com.wallissoftware.universalanalytics.shared.options.CreateOptions;
-import com.wallissoftware.universalanalytics.shared.options.EventsOptions;
 import com.wallissoftware.universalanalytics.shared.options.GeneralOptions;
-import com.wallissoftware.universalanalytics.shared.options.SocialOptions;
 import com.wallissoftware.universalanalytics.shared.options.TimingOptions;
 
-public class UniversalAnalyticsImpl implements UniversalAnalytics {
-    private final String userAccount;
+public class UniversalAnalyticsImpl extends AbstractUniversalAnalyticsImpl {
 
     private final Map<String, Double> timingEvents = new HashMap<>();
 
     @Inject
     UniversalAnalyticsImpl(@Named("gaAccount") final String userAccount,
             @Named("uaAutoCreate") final boolean autoCreate) {
+        super(userAccount);
         init();
-        this.userAccount = userAccount;
         if (autoCreate) {
             create().go();
         }
@@ -43,13 +39,6 @@ public class UniversalAnalyticsImpl implements UniversalAnalytics {
             aryParams.set(aryParams.size(), p);
         }
         nativeCall(aryParams.getJavaScriptObject());
-    }
-
-
-
-    @Override
-    public CreateOptions create() {
-        return create(userAccount);
     }
 
     @Override
@@ -69,11 +58,6 @@ public class UniversalAnalyticsImpl implements UniversalAnalytics {
     }
 
     @Override
-    public TimingOptions endTimingEvent(final String timingCategory, final String timingVariableName) {
-        return endTimingEvent(null, timingCategory, timingVariableName);
-    }
-
-    @Override
     public TimingOptions endTimingEvent(final String trackerName, final String timingCategory, final String timingVariableName) {
         final String key = getTimingKey(timingCategory, timingVariableName);
         if (timingEvents.containsKey(key)) {
@@ -89,10 +73,6 @@ public class UniversalAnalyticsImpl implements UniversalAnalytics {
         }).timingOptions(timingCategory, timingVariableName, 0);
     }
 
-    private String getTimingKey(final String timingCategory, final String timingVariableName) {
-        return timingCategory + ":" + timingVariableName;
-    }
-
     private native void init()/*-{
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -104,10 +84,6 @@ public class UniversalAnalyticsImpl implements UniversalAnalytics {
         $wnd.__ua.apply(null, params);
     }-*/;
 
-    @Override
-    public AnalyticsOptions send(final HitType hitType) {
-        return send(null, hitType);
-    }
 
     @Override
     public AnalyticsOptions send(final String trackerName, final HitType hitType) {
@@ -120,47 +96,6 @@ public class UniversalAnalyticsImpl implements UniversalAnalytics {
             }
         });
 
-    }
-
-    @Override
-    public EventsOptions sendEvent(final String category, final String action) {
-        return sendEvent(null, category, action);
-    }
-
-    @Override
-    public EventsOptions sendEvent(final String trackerName, final String category, final String action) {
-        return send(trackerName, HitType.EVENT).eventsOptions(category, action);
-    }
-
-    @Override
-    public ContentOptions sendPageView() {
-        return sendPageView(null);
-    }
-
-    @Override
-    public ContentOptions sendPageView(final String trackerName) {
-        return send(trackerName, HitType.PAGE_VIEW).contentOptions();
-    }
-
-    @Override
-    public SocialOptions sendSocial(final String socialNetwork, final String socialAction, final String socialTarget) {
-        return sendSocial(null, socialNetwork, socialAction, socialTarget);
-    }
-
-    @Override
-    public SocialOptions sendSocial(final String trackerName, final String socialNetwork, final String socialAction, final String socialTarget) {
-        return send(trackerName, HitType.SOCIAL).socialOptions(socialNetwork, socialAction, socialTarget);
-    }
-
-    @Override
-    public TimingOptions sendTiming(final String timingCategory, final String timingVar, final int timingValue) {
-        return sendTiming(null, timingCategory, timingVar, timingValue);
-    }
-
-    @Override
-    public TimingOptions sendTiming(final String trackerName, final String timingCategory, final String timingVar,
-            final int timingValue) {
-        return send(trackerName, HitType.TIMING).timingOptions(timingCategory, timingVar, timingValue);
     }
 
     @Override
