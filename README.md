@@ -1,3 +1,5 @@
+I've moved development of this project to https://github.com/rdwallis/universal-analytics/tree/v2.  You should use that branch instead of this.  It will eventually be merged into the arcbees universal analytics project.
+
 gwt-universal-analytics
 =======================
 
